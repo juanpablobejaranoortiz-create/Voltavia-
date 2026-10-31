@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="VOLTAVIA — Banco eléctrico industrial. Energía que abre camino.">
+<title>VOLTAVIA — Banco eléctrico industrial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#0c0720;
+    --night-2:#150c33;
+    --violet:#7c4dff;
+    --violet-d:#5b2fe0;
+    --lav:#c4b5fd;
+    --mist:#f5f3ff;
+    --ink:#1b1233;
+    --muted:#5d5678;
+    --line-dark:rgba(27,18,51,.1);
+    --line:rgba(255,255,255,.12);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:76px;}
+  body{
+    margin:0; background:var(--mist); color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4,.brand{font-family:'Space Grotesk',system-ui,sans-serif;}
+  a{color:inherit; text-decoration:none;}
+  img,svg{max-width:100%;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+  :focus-visible{outline:3px solid var(--lav); outline-offset:3px; border-radius:6px;}
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(12,7,32,.94); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    padding-top:env(safe-area-inset-top,0px);
+  }
+  nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 24px; max-width:1120px; margin:0 auto;}
+  .brand{color:#fff; font-size:1.2rem; font-weight:700; display:flex; align-items:center; gap:10px; letter-spacing:.04em;}
+  .brand svg{width:30px; height:30px; flex-shrink:0;}
+  .nav-links{display:flex; gap:26px; list-style:none; margin:0; padding:0;}
+  .nav-links a{color:#cfc6ee; font-size:.93rem; font-weight:500; transition:color .2s;}
+  .nav-links a:hover{color:#fff;}
+  .btn{
+    display:inline-block; padding:13px 28px; border-radius:999px; font-weight:600; font-size:.95rem;
+    border:none; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    font-family:inherit; text-align:center;
+  }
+  .btn-primary{background:var(--violet); color:#fff;}
+  .btn-primary:hover{background:#8f66ff; transform:translateY(-2px); box-shadow:0 10px 26px rgba(124,77,255,.4);}
+  .btn-outline{background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.28);}
+  .btn-outline:hover{border-color:var(--lav); color:var(--lav);}
+  .btn-light{background:#fff; color:var(--night);}
+  .btn-light:hover{transform:translateY(-2px); box-shadow:0 10px 26px rgba(0,0,0,.25);}
+  .burger{display:none; background:none; border:none; color:#fff; font-size:1.7rem; cursor:pointer; line-height:1; padding:4px 8px;}
+  .nav-cta{white-space:nowrap;}
+  @media (max-width:960px){
+    .burger{display:block;}
+    .nav-links{
+      display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0;
+      background:var(--night); border-bottom:1px solid var(--line); padding:8px 24px 18px;
+    }
+    .nav-links.open{display:flex;}
+    .nav-links a{display:block; padding:12px 0; border-bottom:1px solid var(--line);}
+    .nav-cta{display:none;}
+  }
+
+  /* HERO */
+  .hero{
+    position:relative; overflow:hidden; color:#fff; padding:96px 0 88px;
+    background:radial-gradient(ellipse at 75% 20%, #2a1470 0%, var(--night) 60%);
+  }
+  .circuit{position:absolute; inset:0; width:100%; height:100%; opacity:.4; pointer-events:none;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:center; position:relative; z-index:1;}
+  @media (max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+  .eyebrow{color:var(--lav); font-size:.82rem; font-weight:600; letter-spacing:.14em; margin:0 0 14px;}
+  .hero h1{font-size:clamp(2.3rem,5vw,3.5rem); line-height:1.06; margin:0 0 20px; font-weight:700;}
+  .hero h1 span{color:var(--lav);}
+  .hero p.lead{color:#d6cff0; font-size:1.1rem; max-width:500px; margin:0 0 20px;}
+  .hero .tagline{color:var(--lav); font-weight:600; margin:0 0 32px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .hero-visual{display:flex; justify-content:center;}
+  .hero-visual svg{width:100%; max-width:380px; height:auto;}
+  .glow{animation:pulse 3.2s ease-in-out infinite; transform-origin:center;}
+  @keyframes pulse{0%,100%{opacity:.55;} 50%{opacity:1;}}
+
+  /* SECTIONS */
+  section{padding:88px 0;}
+  .section-dark{background:var(--night); color:#fff;}
+  .section-white{background:#fff;}
+  h2.title{font-size:clamp(1.7rem,3.2vw,2.3rem); margin:0 0 14px; font-weight:700; line-height:1.15;}
+  p.sub{color:var(--muted); max-width:640px; margin:0 0 44px; font-size:1.05rem;}
+  .section-dark p.sub{color:#b9afdc;}
+  .tag{color:var(--violet-d); font-size:.8rem; font-weight:600; letter-spacing:.14em; margin:0 0 10px; text-transform:uppercase;}
+  .section-dark .tag{color:var(--lav);}
+  .ph{color:#8a63ff; font-style:italic;}
+  .section-dark .ph{color:var(--lav);}
+
+  /* WHAT + PROBLEM */
+  .what-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
+  @media (max-width:860px){.what-grid{grid-template-columns:1fr; gap:36px;}}
+  .what-copy p{font-size:1.06rem; color:#3b3257; margin:0 0 14px;}
+  .what-visual{
+    min-height:280px; border-radius:22px; background:linear-gradient(140deg,var(--violet),#2a1470);
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:3.4rem;
+  }
+  .pj{display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-top:72px;}
+  @media (max-width:860px){.pj{grid-template-columns:1fr; gap:36px;}}
+  .pj h3{font-size:.95rem; letter-spacing:.14em; text-transform:uppercase; color:var(--violet-d); margin:0 0 12px;}
+  .pj p{color:#3b3257; margin:0 0 12px;}
+  .pillars{display:grid; gap:14px; margin-top:20px;}
+  .pillar{display:flex; gap:14px; align-items:flex-start; background:var(--mist); border-radius:14px; padding:16px 18px;}
+  .pillar .ic{font-size:1.5rem; line-height:1;}
+  .pillar h4{margin:0 0 2px; font-size:1rem;}
+  .pillar p{margin:0; font-size:.93rem; color:var(--muted);}
+
+  /* CARDS */
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:26px;}
+  @media (max-width:860px){.grid-3{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:600px){.grid-3,.grid-2{grid-template-columns:1fr;}}
+  .card{
+    background:rgba(255,255,255,.05); border:1px solid var(--line); border-radius:16px; padding:28px 24px;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .card:hover{transform:translateY(-4px); box-shadow:0 16px 36px rgba(0,0,0,.35); border-color:var(--violet);}
+  .card .ic{font-size:1.7rem; margin-bottom:14px; display:block;}
+  .card h3{font-size:1.05rem; margin:0 0 8px;}
+  .card p{margin:0; color:#b9afdc; font-size:.95rem;}
+  .card-light{background:#fff; border:1px solid #e6e0fa; color:var(--ink);}
+  .card-light:hover{box-shadow:0 16px 32px rgba(60,30,140,.12); border-color:var(--violet);}
+  .card-light p{color:var(--muted);}
+
+  /* VALUE (numbered) */
+  .value{display:grid; grid-template-columns:repeat(2,1fr); gap:34px 26px; margin-top:8px;}
+  @media (max-width:700px){.value{grid-template-columns:1fr;}}
+  .vcard{
+    position:relative; background:rgba(255,255,255,.05); border:1px solid var(--line); border-top:5px solid var(--violet);
+    border-radius:6px 6px 16px 16px; padding:34px 26px 26px;
+  }
+  .vcard .num{
+    position:absolute; top:-24px; left:50%; transform:translateX(-50%);
+    width:44px; height:44px; border-radius:50%; background:var(--violet); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-family:'Space Grotesk',sans-serif;
+  }
+  .vcard h3{margin:0 0 8px; font-size:1.1rem;}
+  .vcard p{margin:0; color:#b9afdc; font-size:.96rem;}
+
+  /* BENEFITS */
+  .benefits{display:grid; grid-template-columns:repeat(2,1fr); gap:0 44px;}
+  @media (max-width:700px){.benefits{grid-template-columns:1fr;}}
+  .benefit-item{display:flex; gap:14px; padding:18px 0; border-bottom:1px solid var(--line-dark);}
+  .benefit-item .mark{color:var(--violet); font-weight:700; flex-shrink:0;}
+  .benefit-item p{margin:0;}
+
+  /* MARKET */
+  .market{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
+  @media (max-width:860px){.market{grid-template-columns:1fr; gap:32px;}}
+  .market p{color:#d6cff0; font-size:1.05rem; margin:0 0 16px;}
+  .quote{border-left:4px solid var(--violet); padding:6px 0 6px 20px; margin:22px 0; color:var(--lav); font-size:1rem;}
+  .market-visual{border-radius:20px; background:linear-gradient(160deg,#1c1048,#0c0720); border:1px solid var(--line); padding:24px;}
+
+  /* SEGMENTS */
+  .seg{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media (max-width:860px){.seg{grid-template-columns:1fr;}}
+  .seg .card-light .ic{font-size:2rem; display:block; margin-bottom:12px;}
+  .scenes{display:flex; flex-wrap:wrap; gap:12px; margin-top:34px;}
+  .chip{
+    background:#fff; border:1px solid #e6e0fa; border-radius:999px; padding:10px 18px; font-size:.92rem; font-weight:500;
+    transition:border-color .2s, transform .2s;
+  }
+  .chip:hover{border-color:var(--violet); transform:translateY(-2px);}
+  .scenes-title{margin:40px 0 0; font-weight:600;}
+
+  /* CHANNELS */
+  .channel h3{font-size:1.2rem; margin:0 0 8px;}
+  .channel > p{color:var(--muted); margin:0 0 14px;}
+  .channel ul{list-style:none; margin:0; padding:0; display:grid; gap:12px;}
+  .channel li{background:#fff; border:1px solid #e6e0fa; border-radius:12px; padding:14px 16px; font-size:.96rem;}
+  .channel li b{color:var(--violet-d);}
+  .rel{margin-top:56px; background:var(--night-2); color:#fff; border-radius:22px; padding:38px 34px;}
+  .rel h3{margin:0 0 8px; font-size:1.3rem;}
+  .rel p{color:#c9bfee; margin:0 0 16px;}
+  .rel ul{margin:0; padding-left:20px; color:#fff;}
+  .rel li{margin-bottom:6px;}
+
+  /* REVENUE & TABS */
+  .rev-ic{width:44px; height:44px; border-radius:12px; background:rgba(124,77,255,.25); display:flex; align-items:center; justify-content:center; font-size:1.3rem; margin-bottom:14px;}
+  .tabs{margin-top:64px;}
+  .tablist{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px;}
+  .tab{
+    background:transparent; border:1.5px solid var(--line); color:#cfc6ee; padding:10px 22px; border-radius:999px;
+    font-family:inherit; font-weight:600; font-size:.93rem; cursor:pointer; transition:all .2s;
+  }
+  .tab:hover{border-color:var(--lav); color:#fff;}
+  .tab[aria-selected="true"]{background:var(--violet); border-color:var(--violet); color:#fff;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .panel .grid-3 .card h3{font-size:1rem;}
+
+  /* PROMO */
+  .promo{background:linear-gradient(120deg,var(--violet) 0%, #2a1470 100%); color:#fff; text-align:center;}
+  .promo h2{font-size:clamp(1.8rem,4vw,2.6rem); margin:0 0 14px;}
+  .promo p{color:#ece6ff; font-size:1.1rem; max-width:580px; margin:0 auto 32px;}
+
+  /* CONTACT */
+  .contact-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:start;}
+  @media (max-width:960px){.contact-grid{grid-template-columns:1fr;}}
+  .team{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:520px){.team{grid-template-columns:1fr;}}
+  .member{background:#fff; border:1px solid #e6e0fa; border-radius:16px; padding:22px; display:flex; flex-direction:column; gap:6px;}
+  .member .avatar{
+    width:44px; height:44px; border-radius:50%; background:var(--night); color:var(--lav);
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.9rem; margin-bottom:8px;
+  }
+  .member h4{margin:0; font-size:1rem;}
+  .member .phone{font-weight:600; color:var(--violet-d); font-size:.98rem;}
+  .member .phone.missing{color:#8a63ff; font-style:italic; font-weight:400; font-size:.88rem;}
+  .member .btn{margin-top:8px; padding:10px 16px; font-size:.88rem;}
+  .btn-disabled{background:#ece8fa; color:#8a82a8; cursor:not-allowed; pointer-events:none;}
+  .extra{margin-top:20px; background:var(--night-2); color:#fff; border-radius:16px; padding:22px;}
+  .extra p{margin:0 0 6px; font-size:.95rem; color:#d6cff0;}
+  .extra p:last-child{margin:0;}
+
+  form{background:#fff; border:1px solid #e6e0fa; border-radius:18px; padding:28px;}
+  .field{margin-bottom:18px;}
+  label{display:block; font-size:.88rem; font-weight:600; margin-bottom:6px;}
+  input, textarea{
+    width:100%; padding:12px 14px; border-radius:10px; border:1.5px solid #ddd5f6;
+    font-family:inherit; font-size:.95rem; background:#fbfaff; color:var(--ink); transition:border-color .15s;
+  }
+  input:focus, textarea:focus{outline:none; border-color:var(--violet);}
+  textarea{resize:vertical; min-height:110px;}
+  .error-msg{color:#c2294a; font-size:.82rem; margin-top:5px; display:none;}
+  .field.invalid input, .field.invalid textarea{border-color:#c2294a;}
+  .field.invalid .error-msg{display:block;}
+  .form-status{margin-top:14px; font-size:.92rem; color:var(--violet-d); display:none;}
+  .form-status.show{display:block;}
+
+  /* FOOTER */
+  footer{background:var(--night); color:#b9afdc; padding:56px 0 calc(30px + env(safe-area-inset-bottom,0px));}
+  .foot-grid{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:26px; border-bottom:1px solid var(--line); padding-bottom:30px;}
+  .foot-links{display:flex; gap:22px; list-style:none; padding:0; margin:0; flex-wrap:wrap;}
+  .foot-links a{color:#b9afdc; font-size:.92rem;}
+  .foot-links a:hover{color:#fff;}
+  .foot-bottom{padding-top:22px; margin:0; font-size:.85rem; color:#8279a6;}
+
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    .glow{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+<noscript><style>.reveal{opacity:1; transform:none;}</style></noscript>
+</head>
+<body>
+
+<!-- Logo reutilizable -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b9a6ff"/>
+      <stop offset="1" stop-color="#6d3df0"/>
+    </linearGradient>
+  </defs>
+  <symbol id="logo-mark" viewBox="0 0 32 32">
+    <path d="M16 2 L28 9 V23 L16 30 L4 23 V9 Z" fill="url(#lg)"/>
+    <path d="M17.5 7 L10 17 H15 L13.5 25 L22 14 H17 Z" fill="#fff"/>
+  </symbol>
+</svg>
+
+<header>
+  <nav aria-label="Principal">
+    <a href="#inicio" class="brand" aria-label="VOLTAVIA, ir al inicio"><svg aria-hidden="true"><use href="#logo-mark"/></svg>VOLTAVIA</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#producto">Producto</a></li>
+      <li><a href="#caracteristicas">Características</a></li>
+      <li><a href="#beneficios">Beneficios</a></li>
+      <li><a href="#modelo">Modelo de negocio</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#contacto" class="btn btn-primary nav-cta">Comprar ahora</a>
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">☰</button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <svg class="circuit" viewBox="0 0 1120 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g stroke="#8b5cf6" stroke-width="1.4" fill="none" opacity="0.55">
+      <path d="M0 80 H180 V160 H420"/>
+      <path d="M0 260 H120 V220 H300 V300 H520"/>
+      <path d="M1120 100 H900 V40"/>
+      <path d="M1120 340 H860 V420 H600"/>
+      <path d="M1120 520 H960 V460 H760"/>
+    </g>
+    <g fill="#c4b5fd" opacity="0.8">
+      <circle cx="420" cy="160" r="4"/><circle cx="520" cy="300" r="4"/><circle cx="900" cy="40" r="4"/>
+      <circle cx="600" cy="420" r="4"/><circle cx="760" cy="460" r="4"/>
+    </g>
+  </svg>
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">BANCO ELÉCTRICO INDUSTRIAL</p>
+      <h1>Energía industrial para <span>que tu operación no pare.</span></h1>
+      <p class="lead">Una solución robusta y confiable para mantener tu maquinaria y equipos de trabajo funcionando, incluso sin acceso directo a la red eléctrica.</p>
+      <p class="tagline">VOLTAVIA — Energía que abre camino.</p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn btn-primary">Comprar ahora</a>
+        <a href="#producto" class="btn btn-outline">Conocer el producto</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg viewBox="0 0 400 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de un banco eléctrico industrial VOLTAVIA">
+        <defs>
+          <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#7c4dff" stop-opacity=".55"/>
+            <stop offset="1" stop-color="#7c4dff" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#2a1a5e"/>
+            <stop offset="1" stop-color="#120a2e"/>
+          </linearGradient>
+        </defs>
+        <circle class="glow" cx="200" cy="230" r="190" fill="url(#halo)"/>
+        <!-- asa -->
+        <path d="M140 92 V70 a16 16 0 0 1 16 -16 H244 a16 16 0 0 1 16 16 V92" fill="none" stroke="#5b4a99" stroke-width="10" stroke-linecap="round"/>
+        <!-- cuerpo -->
+        <rect x="70" y="90" width="260" height="290" rx="26" fill="url(#body)" stroke="#8b72e0" stroke-opacity=".45" stroke-width="2"/>
+        <!-- pantalla -->
+        <rect x="100" y="122" width="200" height="112" rx="14" fill="#0c0720" stroke="#a78bfa" stroke-opacity=".6" stroke-width="2"/>
+        <path d="M205 138 L166 190 H193 L183 224 L234 168 H207 Z" fill="#c4b5fd"/>
+        <!-- indicadores de nivel -->
+        <g fill="#7c4dff">
+          <rect x="112" y="214" width="34" height="8" rx="3"/>
+          <rect x="152" y="214" width="34" height="8" rx="3"/>
+          <rect x="192" y="214" width="34" height="8" rx="3" opacity=".6"/>
+          <rect x="232" y="214" width="34" height="8" rx="3" opacity=".3"/>
+        </g>
+        <!-- rejillas -->
+        <g stroke="#3b2c78" stroke-width="5" stroke-linecap="round">
+          <line x1="110" y1="266" x2="290" y2="266"/>
+          <line x1="110" y1="284" x2="290" y2="284"/>
+          <line x1="110" y1="302" x2="290" y2="302"/>
+        </g>
+        <!-- terminales -->
+        <circle cx="130" cy="344" r="14" fill="#1b1040" stroke="#a78bfa" stroke-width="3"/>
+        <circle cx="200" cy="344" r="14" fill="#1b1040" stroke="#a78bfa" stroke-width="3"/>
+        <circle cx="270" cy="344" r="14" fill="#1b1040" stroke="#a78bfa" stroke-width="3"/>
+        <!-- patas -->
+        <rect x="96" y="380" width="52" height="12" rx="5" fill="#3b2c78"/>
+        <rect x="252" y="380" width="52" height="12" rx="5" fill="#3b2c78"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTO + PROBLEMÁTICA -->
+<section id="producto" class="section-white">
+  <div class="wrap">
+    <div class="what-grid reveal">
+      <div class="what-copy">
+        <p class="tag">El producto</p>
+        <h2 class="title">¿Qué es VOLTAVIA?</h2>
+        <p>VOLTAVIA es un banco eléctrico industrial diseñado para almacenar y suministrar energía a maquinaria, herramientas eléctricas y equipos de trabajo compatibles, en entornos donde no hay acceso directo a una toma de corriente.</p>
+        <p>Pensado para acompañar tu operación cuando la red eléctrica no está disponible, sin interrumpir el trabajo.</p>
+      </div>
+      <div class="what-visual" aria-hidden="true">🔋</div>
+    </div>
+
+    <div class="pj reveal">
+      <div>
+        <h3>Problemática</h3>
+        <p>Las operaciones industriales dependen de contar con energía en el momento y en el lugar exactos. Cuando no hay una toma de corriente cerca, o cuando el suministro falla, el trabajo se detiene y se pierde tiempo productivo.</p>
+        <p>En resumen: la energía es indispensable en el punto de trabajo, pero no siempre está disponible allí.</p>
+        <p class="ph">[Ajustar con la problemática real y los datos del proyecto]</p>
+      </div>
+      <div>
+        <h3>Justificación</h3>
+        <p>VOLTAVIA lleva la energía hasta donde se necesita: un banco eléctrico industrial que almacena energía y la entrega a equipos compatibles, para que la operación no dependa de la ubicación de una toma de corriente.</p>
+        <p>Con esta solución atendemos tres frentes:</p>
+        <div class="pillars">
+          <div class="pillar"><span class="ic">⚙️</span><div><h4>Continuidad operativa</h4><p>Menos paradas cuando no hay una toma de corriente cerca.</p></div></div>
+          <div class="pillar"><span class="ic">⚡</span><div><h4>Eficiencia</h4><p>Energía disponible directamente en el punto de trabajo.</p></div></div>
+          <div class="pillar"><span class="ic">🛡️</span><div><h4>Seguridad</h4><p>Protección contra sobrecarga para cuidar equipos e instalaciones.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARACTERÍSTICAS -->
+<section id="caracteristicas" class="section-dark">
+  <div class="wrap reveal">
+    <p class="tag">Características</p>
+    <h2 class="title">Características principales</h2>
+    <p class="sub">Todo lo que tu operación necesita para seguir en marcha, en un solo equipo.</p>
+    <div class="grid-3">
+      <div class="card"><span class="ic">⚡</span><h3>Suministro de energía eficiente</h3><p>Entrega energía de forma estable y confiable a tus equipos.</p></div>
+      <div class="card"><span class="ic">🔋</span><h3>Batería de alta capacidad</h3><p>Diseñada para respaldar operaciones y jornadas de trabajo prolongadas.</p></div>
+      <div class="card"><span class="ic">🔌</span><h3>Compatible con múltiples equipos</h3><p>Funciona con herramientas, maquinaria y equipos industriales compatibles.</p></div>
+      <div class="card"><span class="ic">🛡️</span><h3>Protección contra sobrecarga</h3><p>Cuida tus equipos e instalaciones en cada uso.</p></div>
+      <div class="card"><span class="ic">🧰</span><h3>Diseño robusto y portátil</h3><p>Resistente y fácil de trasladar entre áreas de trabajo.</p></div>
+      <div class="card"><span class="ic">🔗</span><h3>Fácil conexión</h3><p>Conecta tus equipos de forma simple e intuitiva.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPUESTA DE VALOR -->
+<section id="valor">
+  <div class="wrap reveal">
+    <p class="tag" style="color:var(--violet-d)">Propuesta de valor</p>
+    <h2 class="title">Nuestra propuesta de valor diferenciadora</h2>
+    <p class="sub">Lo que hace distinta a VOLTAVIA frente a otras alternativas de energía.</p>
+  </div>
+  <div class="section-dark" style="padding:70px 0; margin-top:0;">
+    <div class="wrap reveal">
+      <div class="value">
+        <div class="vcard"><span class="num">1</span><h3>Energía confiable</h3><p>Un banco eléctrico pensado para mantener tus equipos funcionando cuando la red no está disponible.</p></div>
+        <div class="vcard"><span class="num">2</span><h3>Robustez industrial</h3><p>Diseñado para entornos de trabajo exigentes y para moverse con tu operación.</p></div>
+        <div class="vcard"><span class="num">3</span><h3>Mantenimiento y soporte</h3><p class="ph">[Agregar condiciones de mantenimiento y soporte]</p></div>
+        <div class="vcard"><span class="num">4</span><h3>Formación integral</h3><p class="ph">[Agregar plan de formación para el uso del equipo]</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFICIOS -->
+<section id="beneficios">
+  <div class="wrap reveal">
+    <p class="tag">Beneficios</p>
+    <h2 class="title">¿Por qué elegir VOLTAVIA?</h2>
+    <p class="sub">Practicidad pensada para el día a día de tu operación.</p>
+    <div class="benefits">
+      <div class="benefit-item"><span class="mark">＋</span><p>Mantén tu operación funcionando por más tiempo.</p></div>
+      <div class="benefit-item"><span class="mark">＋</span><p>Trasládalo fácilmente entre distintas áreas de trabajo.</p></div>
+      <div class="benefit-item"><span class="mark">＋</span><p>Ideal para construcción, mantenimiento, producción y trabajo de campo.</p></div>
+      <div class="benefit-item"><span class="mark">＋</span><p>Diseño resistente y práctico.</p></div>
+      <div class="benefit-item"><span class="mark">＋</span><p>Solución conveniente cuando no tienes una toma de corriente cerca.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MERCADO -->
+<section class="section-dark" id="mercado">
+  <div class="wrap market reveal">
+    <div class="market-visual">
+      <svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración abstracta de una ciudad industrial conectada">
+        <g fill="#1d1250" stroke="#8b5cf6" stroke-width="1.5">
+          <rect x="30" y="130" width="50" height="110"/>
+          <rect x="95" y="90" width="55" height="150"/>
+          <rect x="165" y="50" width="60" height="190"/>
+          <rect x="240" y="110" width="50" height="130"/>
+          <rect x="300" y="150" width="40" height="90"/>
+        </g>
+        <g fill="#c4b5fd" opacity=".85">
+          <rect x="42" y="150" width="8" height="8"/><rect x="60" y="150" width="8" height="8"/>
+          <rect x="42" y="175" width="8" height="8"/><rect x="60" y="175" width="8" height="8"/>
+          <rect x="108" y="110" width="8" height="8"/><rect x="128" y="110" width="8" height="8"/>
+          <rect x="108" y="140" width="8" height="8"/><rect x="128" y="140" width="8" height="8"/>
+          <rect x="180" y="72" width="8" height="8"/><rect x="204" y="72" width="8" height="8"/>
+          <rect x="180" y="104" width="8" height="8"/><rect x="204" y="104" width="8" height="8"/>
+          <rect x="254" y="130" width="8" height="8"/><rect x="272" y="130" width="8" height="8"/>
+        </g>
+        <path d="M0 245 H120 L140 225 H260 L280 245 H360" fill="none" stroke="#7c4dff" stroke-width="2.5"/>
+        <path d="M0 30 H80 L100 50 H160" fill="none" stroke="#7c4dff" stroke-width="1.5" opacity=".6"/>
+        <circle cx="160" cy="50" r="4" fill="#c4b5fd"/>
+      </svg>
+    </div>
+    <div>
+      <p class="tag">Oportunidad</p>
+      <h2 class="title">El ecosistema industrial: una oportunidad en expansión</h2>
+      <p>Construcción, manufactura, mantenimiento y trabajo de campo comparten la misma necesidad: contar con energía disponible allí donde la red no llega.</p>
+      <div class="quote ph">[Agregar dato o cita de mercado con su fuente]</div>
+      <p>Desde pequeños talleres hasta grandes plantas, disponer de energía en el punto de trabajo es cada vez más relevante.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEGMENTOS -->
+<section id="segmentos">
+  <div class="wrap reveal">
+    <p class="tag">Clientes</p>
+    <h2 class="title">Segmentos clave de clientes</h2>
+    <p class="sub">VOLTAVIA está pensado para un amplio espectro de usuarios, desde pequeños negocios hasta operaciones industriales e institucionales.</p>
+    <div class="seg">
+      <div class="card card-light"><span class="ic">🧑‍💼</span><h3>Emprendedores y talleres</h3><p>Soluciones prácticas para proyectos y trabajos a pequeña escala.</p></div>
+      <div class="card card-light"><span class="ic">🏭</span><h3>Empresas industriales</h3><p>Energía robusta para fábricas, construcción, mantenimiento y producción.</p></div>
+      <div class="card card-light"><span class="ic">🏛️</span><h3>Compradores institucionales</h3><p>Equipos para centros educativos, de investigación y desarrollo tecnológico.</p></div>
+    </div>
+    <p class="scenes-title">Ideal para:</p>
+    <div class="scenes">
+      <span class="chip">🏭 Fábricas</span>
+      <span class="chip">🏗️ Construcción</span>
+      <span class="chip">🔧 Talleres</span>
+      <span class="chip">📦 Bodegas</span>
+      <span class="chip">🌾 Trabajo de campo</span>
+    </div>
+  </div>
+</section>
+
+<!-- CANALES Y RELACIÓN -->
+<section id="canales" class="section-white">
+  <div class="wrap reveal">
+    <p class="tag">Canales</p>
+    <h2 class="title">Canales de distribución y publicidad</h2>
+    <p class="sub">Cómo llega VOLTAVIA a sus clientes y cómo conectamos con ellos.</p>
+    <div class="grid-2">
+      <div class="channel">
+        <h3>Distribución</h3>
+        <p>Flexibilidad para que cada cliente compre como le resulte más cómodo:</p>
+        <ul>
+          <li><b>Sitio web:</b> compra y contacto directo desde esta página.</li>
+          <li><b>Plataformas de venta en línea:</b> <span class="ph">[Agregar plataformas]</span></li>
+          <li><b>Venta directa a empresas:</b> <span class="ph">[Confirmar modalidad de entrega e instalación]</span></li>
+        </ul>
+      </div>
+      <div class="channel">
+        <h3>Estrategia publicitaria</h3>
+        <p>Conectamos con nuestros clientes donde ellos están:</p>
+        <ul>
+          <li><b>Redes sociales:</b> <span class="ph">[Agregar redes y enlaces]</span></li>
+          <li><b>Contacto directo:</b> correo <span class="ph">[Agregar correo de contacto]</span> y los teléfonos de la sección de contacto.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rel">
+      <h3>Relación estratégica con clientes</h3>
+      <p>En VOLTAVIA vamos más allá de una simple venta: queremos construir relaciones a largo plazo con empresas interesadas y clientes recurrentes.</p>
+      <ul>
+        <li>Acceso a ofertas personalizadas.</li>
+        <li>Actualizaciones sobre nuevos productos y tecnologías.</li>
+        <li>Servicio posventa prioritario.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MODELO DE NEGOCIO -->
+<section id="modelo" class="section-dark">
+  <div class="wrap reveal">
+    <p class="tag">Modelo de negocio</p>
+    <h2 class="title">Fuentes de ingresos: diversificación para crecer</h2>
+    <p class="sub">Un modelo de ingresos diversificado que da estabilidad y espacio para expandirse.</p>
+    <div class="grid-3">
+      <div class="card"><div class="rev-ic">🔋</div><h3>Venta de bancos eléctricos</h3><p>Línea principal de ingresos del proyecto. <span class="ph">[Agregar modelos disponibles]</span></p></div>
+      <div class="card"><div class="rev-ic">🔩</div><h3>Repuestos y accesorios</h3><p>Piezas para el mantenimiento y la vida útil del equipo. <span class="ph">[Confirmar catálogo]</span></p></div>
+      <div class="card"><div class="rev-ic">🎓</div><h3>Capacitaciones</h3><p>Formación para el uso seguro y eficiente del equipo. <span class="ph">[Agregar detalles]</span></p></div>
+      <div class="card"><div class="rev-ic">🛠️</div><h3>Servicio técnico</h3><p>Mantenimiento preventivo y correctivo. <span class="ph">[Agregar condiciones]</span></p></div>
+      <div class="card"><div class="rev-ic">💳</div><h3>Medios de pago</h3><p class="ph">[Agregar medios de pago aceptados]</p></div>
+    </div>
+
+    <div class="tabs">
+      <div class="tablist" role="tablist" aria-label="Modelo de negocio">
+        <button class="tab" role="tab" id="tab-recursos" aria-selected="true" aria-controls="panel-recursos">Recursos clave</button>
+        <button class="tab" role="tab" id="tab-actividades" aria-selected="false" aria-controls="panel-actividades">Actividades clave</button>
+        <button class="tab" role="tab" id="tab-socios" aria-selected="false" aria-controls="panel-socios">Socios clave</button>
+      </div>
+
+      <div class="panel active" role="tabpanel" id="panel-recursos" aria-labelledby="tab-recursos">
+        <div class="grid-3">
+          <div class="card"><h3>Capital inicial</h3><p class="ph">[Agregar monto de inversión]</p></div>
+          <div class="card"><h3>Equipo técnico</h3><p>Perfiles de ingeniería eléctrica, electrónica o afines. <span class="ph">[Confirmar perfiles]</span></p></div>
+          <div class="card"><h3>Diseño y desarrollo</h3><p>Diseño del producto y de sus componentes, desde el concepto hasta el modelo final.</p></div>
+          <div class="card"><h3>Taller de ensamblaje</h3><p class="ph">[Agregar espacio o ubicación]</p></div>
+          <div class="card"><h3>Componentes eléctricos y electrónicos</h3><p>Son el núcleo del producto y definen su desempeño.</p></div>
+          <div class="card"><h3>Equipos y software</h3><p class="ph">[Agregar equipos informáticos y software de diseño]</p></div>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-actividades" aria-labelledby="tab-actividades">
+        <div class="grid-2">
+          <div class="card"><h3>Administrativas</h3><p>Gestión financiera (flujo de caja, presupuestos, rentabilidad) y gestión legal y contable (registro, impuestos, contratos).</p></div>
+          <div class="card"><h3>Producción</h3><p>Diseño, fabricación y ensamblaje, e integración electrónica, con control de calidad de cada equipo.</p></div>
+          <div class="card"><h3>Ventas y marketing</h3><p>Gestión de canales de venta, contenido en redes sociales y atención comercial, desde la cotización hasta el posventa.</p></div>
+          <div class="card"><h3>Mantenimiento</h3><p>Mantenimiento preventivo y correctivo, gestión de repuestos y soporte técnico al cliente.</p></div>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-socios" aria-labelledby="tab-socios">
+        <div class="grid-3">
+          <div class="card"><h3>Empresas industriales</h3><p>Prueban, validan y recomiendan el equipo en entornos productivos.</p></div>
+          <div class="card"><h3>Entidades educativas</h3><p>Universidades y centros técnicos para prototipos, investigación y prácticas.</p></div>
+          <div class="card"><h3>Proveedores de componentes</h3><p class="ph">[Agregar proveedores]</p></div>
+          <div class="card"><h3>Entidades financieras</h3><p>Crédito o financiación para clientes finales. <span class="ph">[Agregar entidades]</span></p></div>
+          <div class="card"><h3>Ferias y eventos</h3><p>Espacios de exposición y conexión con clientes e inversionistas. <span class="ph">[Agregar eventos]</span></p></div>
+          <div class="card"><h3>Entidades públicas</h3><p class="ph">[Agregar posibles aliados institucionales]</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMO -->
+<section class="promo">
+  <div class="wrap reveal">
+    <h2>No te quedes sin energía.</h2>
+    <p>Lleva la energía hasta donde tu operación la necesita y mantén tus equipos listos para trabajar.</p>
+    <a href="#contacto" class="btn btn-light">Quiero mi VOLTAVIA</a>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="wrap reveal">
+    <p class="tag">Contacto</p>
+    <h2 class="title">Contáctanos</h2>
+    <p class="sub">Estamos listos para ayudarte a mantener tu operación en marcha. Llámanos o escríbenos. <span class="ph">[Agregar precio]</span></p>
+    <div class="contact-grid">
+      <div>
+        <div class="team">
+          <div class="member">
+            <div class="avatar">LA</div>
+            <h4>Luisa Maria Aponte Novoa</h4>
+            <span class="phone">+57 3219455970</span>
+            <a class="btn btn-primary" href="tel:+573219455970">📞 Llamar</a>
+          </div>
+          <div class="member">
+            <div class="avatar">BS</div>
+            <h4>Brahian Sotto Zapata</h4>
+            <span class="phone">+57 3125341992</span>
+            <a class="btn btn-primary" href="tel:+573125341992">📞 Llamar</a>
+          </div>
+          <div class="member">
+            <div class="avatar">JC</div>
+            <h4>Juan Camilo Sanclemente</h4>
+            <span class="phone missing">[Agregar número de contacto]</span>
+            <span class="btn btn-disabled" aria-disabled="true">📞 Llamar</span>
+          </div>
+          <div class="member">
+            <div class="avatar">J</div>
+            <h4>Jeronimo</h4>
+            <span class="phone">+57 3009488933</span>
+            <a class="btn btn-primary" href="tel:+573009488933">📞 Llamar</a>
+          </div>
+          <div class="member">
+            <div class="avatar">JP</div>
+            <h4>Juan Pablo Bejarano Ortiz</h4>
+            <span class="phone">+57 3214752741</span>
+            <a class="btn btn-primary" href="tel:+573214752741">📞 Llamar</a>
+          </div>
+        </div>
+        <div class="extra">
+          <p><b>Correo:</b> <span class="ph">[Agregar correo de contacto]</span></p>
+          <p><b>Redes sociales:</b> <span class="ph">[Agregar enlaces]</span></p>
+        </div>
+      </div>
+
+      <form id="contact-form" novalidate>
+        <div class="field" id="field-name">
+          <label for="name">Nombre</label>
+          <input type="text" id="name" name="name" placeholder="Tu nombre" autocomplete="name">
+          <span class="error-msg">Por favor ingresa tu nombre.</span>
+        </div>
+        <div class="field" id="field-email">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" placeholder="tu@correo.com" autocomplete="email">
+          <span class="error-msg">Ingresa un correo válido.</span>
+        </div>
+        <div class="field" id="field-message">
+          <label for="message">Mensaje</label>
+          <textarea id="message" name="message" placeholder="Cuéntanos qué necesitas"></textarea>
+          <span class="error-msg">Escribe un mensaje.</span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Enviar mensaje</button>
+        <p class="form-status" id="form-status" role="status">¡Gracias! Tu mensaje fue validado correctamente. <span class="ph">[Conectar el envío real del formulario]</span></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="brand"><svg aria-hidden="true"><use href="#logo-mark"/></svg>VOLTAVIA — Energía que abre camino.</div>
+      <ul class="foot-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#producto">Producto</a></li>
+        <li><a href="#caracteristicas">Características</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <p class="foot-bottom">© 2026 VOLTAVIA. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+  // Aparición suave al desplazarse
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+
+  // Menú móvil
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('nav-links');
+  function setMenu(open) {
+    navLinks.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    burger.textContent = open ? '✕' : '☰';
+  }
+  burger.addEventListener('click', () => setMenu(!navLinks.classList.contains('open')));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+  // Pestañas del modelo de negocio
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(tab => tab.addEventListener('click', () => {
+    tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tab.setAttribute('aria-selected', 'true');
+    document.getElementById(tab.getAttribute('aria-controls')).classList.add('active');
+  }));
+
+  // Validación del formulario de contacto
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const message = document.getElementById('message');
+    const fName = document.getElementById('field-name');
+    const fEmail = document.getElementById('field-email');
+    const fMsg = document.getElementById('field-message');
+    let valid = true;
+
+    [fName, fEmail, fMsg].forEach(f => f.classList.remove('invalid'));
+    if (!name.value.trim()) { fName.classList.add('invalid'); valid = false; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { fEmail.classList.add('invalid'); valid = false; }
+    if (!message.value.trim()) { fMsg.classList.add('invalid'); valid = false; }
+
+    if (valid) { status.classList.add('show'); form.reset(); }
+    else { status.classList.remove('show'); }
+  });
+</script>
+
+</body>
+</html>
